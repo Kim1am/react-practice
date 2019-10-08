@@ -45,9 +45,9 @@ class Buttons extends Component {
         </Card>
         <Card title="加载按钮" bordered={false}>
           <Button type="primary" loading={this.state.loading}>确定</Button>
-          <Button type="primary" shape="cirle" loading={this.state.loading}></Button>
+          <Button type="primary" shape="circle" loading={this.state.loading}></Button>
           <Button loading={this.state.loading}>点击加载</Button>
-          <Button shape="cirle" loading={this.state.loading}></Button>
+          <Button shape="circle" loading={this.state.loading}></Button>
           <Button type="primary" onClick={this.turnLoading}>关闭</Button>
         </Card>
         <Card title="按钮组" bordered={false}>
