@@ -4,6 +4,7 @@ import App from './App'
 import Login from './pages/login'
 import Admin from './admin';
 import Buttons from "./pages/ui/buttons/index.js";
+import Modals from './pages/ui/modal/index.js'
 import notFound from "./pages/404";
 import Home from "./pages/home";
 
@@ -23,6 +24,7 @@ class IRouter extends Component {
               <Switch>
                 <Route path='/admin/home' exact component={Home}></Route>
                 <Route exact path='/admin/ui/buttons' component={Buttons}></Route>
+                <Route exact path='/admin/ui/modals' component={Modals}></Route>
                 <Route component={notFound}></Route>
               </Switch>
             </Admin>
