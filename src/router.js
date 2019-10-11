@@ -11,6 +11,7 @@ import Notifications from "./pages/ui/notifications";
 import Messages from "./pages/ui/messages";
 import Home from "./pages/home";
 import Tab from "./pages/ui/tabs";
+import Gallery from "./pages/ui/gallery";
 
 class IRouter extends Component {
   constructor(props) {
@@ -33,6 +34,7 @@ class IRouter extends Component {
                 <Route exact path='/admin/ui/notifications' component={Notifications}></Route>
                 <Route exact path='/admin/ui/messages' component={Messages}></Route>
                 <Route exact path='/admin/ui/tabs' component={Tab}></Route>
+                <Route exact path='/admin/ui/gallery' component={Gallery}></Route>
                 <Route component={notFound}></Route>
               </Switch>
             </Admin>

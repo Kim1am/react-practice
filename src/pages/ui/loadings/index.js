@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Spin, Card, Button,Icon,Alert} from 'antd'
+import {Spin, Card,Icon,Alert} from 'antd'
 import './index.less'
 
 class Loadings extends Component {
