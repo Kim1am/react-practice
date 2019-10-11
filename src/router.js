@@ -8,7 +8,9 @@ import Modals from './pages/ui/modal/index.js'
 import notFound from "./pages/404";
 import Loadings from "./pages/ui/loadings";
 import Notifications from "./pages/ui/notifications";
+import Messages from "./pages/ui/messages";
 import Home from "./pages/home";
+import Tab from "./pages/ui/tabs";
 
 class IRouter extends Component {
   constructor(props) {
@@ -29,6 +31,8 @@ class IRouter extends Component {
                 <Route exact path='/admin/ui/modals' component={Modals}></Route>
                 <Route exact path='/admin/ui/loadings' component={Loadings}></Route>
                 <Route exact path='/admin/ui/notifications' component={Notifications}></Route>
+                <Route exact path='/admin/ui/messages' component={Messages}></Route>
+                <Route exact path='/admin/ui/tabs' component={Tab}></Route>
                 <Route component={notFound}></Route>
               </Switch>
             </Admin>
