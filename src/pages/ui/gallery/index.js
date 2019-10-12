@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Card, Row, Col} from 'antd'
+import {Card, Row, Col, Modal} from 'antd'
 import './index.less'
 
 class Gallery extends Component {
@@ -7,9 +7,13 @@ class Gallery extends Component {
     super(props);
     this.state = {
       imgs: [],
-      imgReactDom: null
+      imgReactDom: null,
+      visible: false,
+      currentImg: '',
+
     }
   }
+
   componentWillMount() {
 
   }
@@ -17,8 +21,8 @@ class Gallery extends Component {
   componentDidMount() {
     const imgs = this.generateImgs()
     this.setState({
-      imgs:imgs
-    },()=>{
+      imgs: imgs
+    }, () => {
       this.generateImgsReactDom()
     })
   }
@@ -35,32 +39,53 @@ class Gallery extends Component {
     }
     return imgs
   }
+  openGallery = (imgItem) => {
+    this.setState({
+      currentImg: imgItem,
+      visible: true
+    })
+  }
   generateImgsReactDom = () => {
     const {imgs} = this.state
-    const imgReactDom =  imgs.map((list, rowIndex) => {
+    const imgReactDom = imgs.map((list, rowIndex, arr) => {
       return (
-        <Row key={rowIndex} type="flex" justify="space-between">
+        <Col key={rowIndex} md={(rowIndex === arr.length - 1) ? 4 : 5}>
           {list.map((imgItem, colIndex, colArr) => {
             return (
-              <Col key={colIndex} span={Math.floor(24 / colArr.length)}>
-                <Card cover={<img src={'/gallery/' + imgItem} alt={imgItem}/>}>
-                  <Card.Meta title="React" description="Learn React"/>
-                </Card>
-              </Col>
+              <Card key={colIndex} cover={<img src={'/gallery/' + imgItem} alt={imgItem}
+                                               onClick={this.openGallery.bind(this, imgItem)}/>}>
+                <Card.Meta title="React" description="Learn React"/>
+              </Card>
             )
           })}
-        </Row>
+        </Col>
       )
     })
     this.setState({
-      imgReactDom:imgReactDom
+      imgReactDom: imgReactDom
+    })
+  }
+
+  closeGallery = () => {
+    this.setState({
+      visible: false
     })
   }
 
   render() {
     return (
       <div>
-        {this.state.imgReactDom}
+        <Row type="flex" justify="space-between">
+          {this.state.imgReactDom}
+        </Row>
+        <Modal
+          visible={this.state.visible}
+          onCancel={this.closeGallery}
+          footer={null}
+          title="图片画廊"
+        >
+          <img src={`/gallery/${this.state.currentImg}`} alt={this.state.currentImg} style={{width: '100%'}}/>
+        </Modal>
       </div>
     );
   }
