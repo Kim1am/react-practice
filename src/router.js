@@ -13,6 +13,7 @@ import Home from "./pages/home";
 import Tab from "./pages/ui/tabs";
 import Gallery from "./pages/ui/gallery";
 import Carousels from "./pages/ui/carousel";
+import LoginForm from "./pages/form/login";
 
 class IRouter extends Component {
   constructor(props) {
@@ -37,6 +38,7 @@ class IRouter extends Component {
                 <Route exact path='/admin/ui/tabs' component={Tab}></Route>
                 <Route exact path='/admin/ui/gallery' component={Gallery}></Route>
                 <Route exact path='/admin/ui/carousel' component={Carousels}></Route>
+                <Route exact path='/admin/form/login' component={LoginForm}></Route>
                 <Route component={notFound}></Route>
               </Switch>
             </Admin>
