@@ -14,6 +14,7 @@ import Tab from "./pages/ui/tabs";
 import Gallery from "./pages/ui/gallery";
 import Carousels from "./pages/ui/carousel";
 import LoginForm from "./pages/form/login";
+import Reg from './pages/form/reg';
 
 class IRouter extends Component {
   constructor(props) {
@@ -34,11 +35,13 @@ class IRouter extends Component {
                 <Route exact path='/admin/ui/modals' component={Modals}></Route>
                 <Route exact path='/admin/ui/loadings' component={Loadings}></Route>
                 <Route exact path='/admin/ui/notifications' component={Notifications}></Route>
-                <Route exact path='/admin/ui/messages' component={Messages}></Route>
                 <Route exact path='/admin/ui/tabs' component={Tab}></Route>
                 <Route exact path='/admin/ui/gallery' component={Gallery}></Route>
                 <Route exact path='/admin/ui/carousel' component={Carousels}></Route>
+                <Route exact path='/admin/ui/messages' component={Messages}></Route>
+
                 <Route exact path='/admin/form/login' component={LoginForm}></Route>
+                <Route exact path='/admin/form/reg' component={Reg}></Route>
                 <Route component={notFound}></Route>
               </Switch>
             </Admin>
