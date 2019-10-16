@@ -8,8 +8,10 @@ class BasicTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSource:[],
-      dataSource2:[]
+      dataSource: [],
+      dataSource2: [],
+      selectedRowKeys: [],
+      selectItem: null
     }
   }
 
@@ -51,16 +53,23 @@ class BasicTable extends Component {
     this.requestList()
   }
 
-
-  requestList= ()=>{
+  requestList = () => {
     axios.ajax({
-      url:'/mode1/tableDataOne',
-      showLoading:true,
-      data:{}
-    }).then((res)=>{
+      url: '/mode1/tableDataOne',
+      showLoading: true,
+      data: {}
+    }).then((res) => {
       this.setState({
-        dataSource2:res.dataSource
+        dataSource2: res.dataSource
       })
+    })
+  }
+
+  onRowClick = (record, index) => {
+    let selectKey = [index]
+    this.setState({
+      selectedRowKeys: selectKey,
+      selectItem: record
     })
   }
 
@@ -78,7 +87,7 @@ class BasicTable extends Component {
         title: '性别',
         dataIndex: 'sex',
         render(sex) {
-          return sex===1 ? '男':"女"
+          return sex === 1 ? '男' : "女"
         }
       },
       {
@@ -102,13 +111,43 @@ class BasicTable extends Component {
         dataIndex: 'time'
       },
     ]
+    const rowSelection = {
+      type: "radio",
+      selectedRowKeys:this.state.selectedRowKeys
+    }
     return (
       <div>
         <Card title="基础表格">
-          <Table rowKey={record=> record.id} bordered columns={columns} dataSource={this.state.dataSource} pagination={false} />
+          <Table
+            rowKey={record => record.id}
+            bordered
+            columns={columns}
+            dataSource={this.state.dataSource}
+            pagination={false}/>
         </Card>
         <Card title="动态数据表格">
-          <Table rowKey={record=> record.id} bordered columns={columns} dataSource={this.state.dataSource2} pagination={false} />
+          <Table
+            rowKey={record => record.id}
+            bordered
+            columns={columns}
+            dataSource={this.state.dataSource2}
+            pagination={false}/>
+        </Card>
+        <Card title="Mock-单选">
+          <Table
+            onRow={(record, index) => {
+              return {
+                onClick: (event) => {
+                  this.onRowClick(record, index)
+                }, // 点击行
+              };
+            }}
+            rowSelection={rowSelection}
+            rowKey={record => (record.id - 1)}
+            bordered
+            columns={columns}
+            dataSource={this.state.dataSource2}
+            pagination={false}/>
         </Card>
       </div>
     )
