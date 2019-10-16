@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Card, Table} from 'antd'
+import {Card, Table, Button} from 'antd'
 import './index.less'
 import '../../../mock/api'
 import axios from './../../../axios/index'
@@ -10,7 +10,9 @@ class BasicTable extends Component {
     this.state = {
       dataSource: [],
       dataSource2: [],
+      dataSource3: [],
       selectedRowKeys: [],
+      selectedRowKeysChecked: [],
       selectItem: null
     }
   }
@@ -60,7 +62,8 @@ class BasicTable extends Component {
       data: {}
     }).then((res) => {
       this.setState({
-        dataSource2: res.dataSource
+        dataSource2: res.dataSource,
+        dataSource3: res.dataSource
       })
     })
   }
@@ -70,6 +73,17 @@ class BasicTable extends Component {
     this.setState({
       selectedRowKeys: selectKey,
       selectItem: record
+    })
+  }
+
+  handleDelete = () => {
+    let selectedKey = this.state.selectedRowKeysChecked
+    const afterFilter = this.state.dataSource3.filter((item)=>{
+      return !selectedKey.includes(item.id-1)
+    })
+    this.setState({
+      dataSource3:afterFilter,
+      selectedRowKeysChecked: []
     })
   }
 
@@ -113,7 +127,16 @@ class BasicTable extends Component {
     ]
     const rowSelection = {
       type: "radio",
-      selectedRowKeys:this.state.selectedRowKeys
+      selectedRowKeys: this.state.selectedRowKeys
+    }
+    const rowCheckSelection = {
+      type: "checkbox",
+      selectedRowKeys: this.state.selectedRowKeysChecked,
+      onChange: (selectedRowKeys, selectedRows) => {
+        this.setState({
+          selectedRowKeysChecked: selectedRowKeys
+        })
+      }
     }
     return (
       <div>
@@ -147,6 +170,16 @@ class BasicTable extends Component {
             bordered
             columns={columns}
             dataSource={this.state.dataSource2}
+            pagination={false}/>
+        </Card>
+        <Card title="Mock-复现">
+          <Button onClick={this.handleDelete}>删除</Button>
+          <Table
+            rowSelection={rowCheckSelection}
+            rowKey={record => (record.id - 1)}
+            bordered
+            columns={columns}
+            dataSource={this.state.dataSource3}
             pagination={false}/>
         </Card>
       </div>
