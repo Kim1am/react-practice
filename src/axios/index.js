@@ -26,7 +26,7 @@ export default class Axios {
     return new Promise((resolve, reject) => {
       axios({
         url:options.url,
-        method:'get',
+        method:options.method,
         baseURL:baseApi,
         timeout:5000,
         params:(options.data && options.data.params) || '',
@@ -34,20 +34,18 @@ export default class Axios {
         if(options.showLoading) {
           document.getElementById('ajaxLoading').style.display = 'none'
         }
-        console.log(response)
         if(response.status === 200) {
           let res = response.data
           if(res.code === '0') {
             resolve(res)
           }else {
+            reject(res)
             message.error(res.msg ? res.msg : '',3)
           }
         }else {
           reject(response.data)
         }
       })
-    }).catch((e) => {
-      console.log(e)
-    });
+    })
   }
 }

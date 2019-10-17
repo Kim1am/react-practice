@@ -2,7 +2,9 @@ import React, {Component} from 'react'
 import {Card, Table, Button} from 'antd'
 import './index.less'
 import '../../../mock/api'
+import Utils from '../../../utils/utils'
 import axios from './../../../axios/index'
+
 
 class BasicTable extends Component {
   constructor(props) {
@@ -13,10 +15,13 @@ class BasicTable extends Component {
       dataSource3: [],
       selectedRowKeys: [],
       selectedRowKeysChecked: [],
-      selectItem: null
+      selectItem: null,
     }
   }
-
+  //分页变量
+  params={
+    page:1
+  }
   componentDidMount() {
 
     const dataSource = [
@@ -56,15 +61,29 @@ class BasicTable extends Component {
   }
 
   requestList = () => {
+    let _this = this
     axios.ajax({
       url: '/mode1/tableDataOne',
+      method:'get',
       showLoading: true,
-      data: {}
+      data: {
+        params:{
+          page:this.params.page
+        }
+      }
     }).then((res) => {
+      console.log(res)
       this.setState({
-        dataSource2: res.dataSource,
-        dataSource3: res.dataSource
+        dataSource2: res.dataSource.list,
+        dataSource3: res.dataSource.list,
+        pagination:Utils.pagination(res,(current)=>{
+          //TODO:
+          _this.params.page = current
+          _this.requestList()
+        })
       })
+    },(rej)=>{
+      console.log(2312312)
     })
   }
 
@@ -181,6 +200,14 @@ class BasicTable extends Component {
             columns={columns}
             dataSource={this.state.dataSource3}
             pagination={false}/>
+        </Card>
+        <Card title="Mock-分页">
+          <Table
+            rowKey={record => (record.id - 1)}
+            bordered
+            columns={columns}
+            dataSource={this.state.dataSource3}
+            pagination={this.state.pagination}/>
         </Card>
       </div>
     )
