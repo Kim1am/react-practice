@@ -12,6 +12,7 @@ const list =[
           'userName|1':'@cname',
         'sex|1': ['1', '2'],
         'state|1': ['1', '2'],
+        'age|0-100':0,
         'interest|1': ['1', '2'],
         'birthday': '@date("yyyy-MM-dd")',
         'address': '12312313123',

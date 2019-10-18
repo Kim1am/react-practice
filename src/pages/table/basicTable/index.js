@@ -77,7 +77,6 @@ class BasicTable extends Component {
         dataSource2: res.dataSource.list,
         dataSource3: res.dataSource.list,
         pagination:Utils.pagination(res,(current)=>{
-          //TODO:
           _this.params.page = current
           _this.requestList()
         })
