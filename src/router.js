@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {HashRouter, Route, Switch} from 'react-router-dom'
-import App from './App'
+import Container from './components/Container/Container'
 import Login from './pages/login'
-import Admin from './admin';
+import Admin from './pages/admin/admin';
 import Buttons from "./pages/ui/buttons/index.js";
 import Modals from './pages/ui/modal/index.js'
 import notFound from "./pages/404";
@@ -27,7 +27,7 @@ class IRouter extends Component {
   render() {
     return (
       <HashRouter>
-        <App>
+        <Container>
           <Route path='/login' component={Login}></Route>
           <Route path='/admin' render={() =>
             <Admin>
@@ -51,7 +51,7 @@ class IRouter extends Component {
               </Switch>
             </Admin>
           }></Route>
-        </App>
+        </Container>
       </HashRouter>
     );
   }
