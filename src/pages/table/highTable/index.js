@@ -18,7 +18,6 @@ class HighTable extends Component {
   }
 
   requestList = () => {
-    let _this = this
     axios.ajax({
       url: '/mode1/tableDataOne',
       method: 'get',

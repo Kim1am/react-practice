@@ -17,7 +17,7 @@ import LoginForm from "./pages/form/login";
 import Reg from './pages/form/reg';
 import BasicTable from "./pages/table/basicTable";
 import HighTable from "./pages/table/highTable";
-
+import City from "./pages/city";
 class IRouter extends Component {
   constructor(props) {
     super(props);
@@ -47,6 +47,8 @@ class IRouter extends Component {
 
                 <Route exact path='/admin/table/basic' component={BasicTable}></Route>
                 <Route exact path='/admin/table/high' component={HighTable}></Route>
+
+                <Route exact path='/admin/city' component={City}></Route>
                 <Route component={notFound}></Route>
               </Switch>
             </Admin>
