@@ -86,14 +86,14 @@ class City extends Component {
         title: '用车模式',
         dataIndex: 'mode',
         render(value) {
-          return value == 1? '停车点':'禁停区'
+          return value === 1? '停车点':'禁停区'
         }
       },
       {
         title: '运营模式',
         dataIndex: 'opMode',
         render(value) {
-          return value == 1? '自营模式':'加盟模式'
+          return value === 1? '自营模式':'加盟模式'
         }
       },
       {
