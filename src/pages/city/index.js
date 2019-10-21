@@ -1,17 +1,19 @@
 import React, {Component} from 'react'
-import {Card, Button, Table, Form, Select} from 'antd'
+import {Card, Button, Table, Form, Select, Modal,message} from 'antd'
 import './../../mock/api'
 import axios from './../../axios/index'
 import Utils from './../../utils/utils'
 import './index.less'
 
 const FormItem = Form.Item
+const {Option} = Select;
 
 class City extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      list: []
+      list: [],
+      isShowOpenCity: false
     }
   }
 
@@ -42,10 +44,30 @@ class City extends Component {
       console.log(e)
     })
   }
-
+  handleSubmit = () => {
+    let cityInfo = this.cityForm.props.form.getFieldsValue()
+    axios.ajax({
+      url:'/mode1/open',
+      method:'get',
+      data:{
+        params: cityInfo,
+      }
+    }).then((res)=>{
+      if(res.code === "0") {
+        message.success('成功')
+        this.setState({
+          isShowOpenCity:false
+        })
+      }else {
+        message.error(res.result)
+      }
+    })
+  }
   //开通城市
   handleOpenCity = () => {
-
+    this.setState({
+      isShowOpenCity: true
+    })
   }
 
   render() {
@@ -62,11 +84,17 @@ class City extends Component {
       },
       {
         title: '用车模式',
-        dataIndex: 'mode'
+        dataIndex: 'mode',
+        render(value) {
+          return value == 1? '停车点':'禁停区'
+        }
       },
       {
         title: '运营模式',
-        dataIndex: 'opMode'
+        dataIndex: 'opMode',
+        render(value) {
+          return value == 1? '自营模式':'加盟模式'
+        }
       },
       {
         title: '授权加盟商',
@@ -87,7 +115,8 @@ class City extends Component {
       },
       {
         title: '操作时间',
-        dataIndex: 'updateTime'
+        dataIndex: 'updateTime',
+        render:Utils.formateDate
       },
       {
         title: '操作人',
@@ -106,6 +135,20 @@ class City extends Component {
         <div className="content-wrap">
           <Table columns={columns} dataSource={this.state.list} pagination={this.state.pagination}/>
         </div>
+        <Modal
+          title="开通城市"
+          visible={this.state.isShowOpenCity}
+          onCancel={() => {
+            this.setState({
+              isShowOpenCity: false
+            })
+          }}
+          onOk={this.handleSubmit}
+        >
+          <OpenCityForm wrappedComponentRef={(inst) => {
+            this.cityForm = inst
+          }}/>
+        </Modal>
       </div>
     )
   }
@@ -118,7 +161,6 @@ export default City;
 class FilterForm extends Component {
   render() {
     const {getFieldDecorator} = this.props.form
-    const {Option} = Select;
     return (
       <Form layout={"inline"}>
         <FormItem label="城市">
@@ -176,3 +218,56 @@ class FilterForm extends Component {
 }
 
 FilterForm = Form.create({})(FilterForm)
+
+class OpenCityForm extends Component {
+  render() {
+    const formItemLayout = {
+      labelCol: {
+        span: 5
+      },
+      wrapperCol: {
+        span: 19
+      }
+    }
+    const {getFieldDecorator} = this.props.form
+    return (
+      <Form layout="horizontal">
+        <FormItem label="选择城市" {...formItemLayout}>
+          {
+            getFieldDecorator('cityId', {
+              initialValue: '1'
+            })(<Select style={{width: 100}}>
+              <Option value="">全部</Option>
+              <Option value="1">北京市</Option>
+              <Option value="2">天津市</Option>
+              <Option value="3">天津市</Option>
+            </Select>)
+          }
+        </FormItem>
+        <FormItem label="运营模式" {...formItemLayout}>
+          {
+            getFieldDecorator('opMode', {
+              initialValue: '1'
+            })(<Select style={{width: 100}}>
+              <Option value="1">自营</Option>
+              <Option value="2">加盟</Option>
+            </Select>)
+          }
+        </FormItem>
+        <FormItem label="用车模式" {...formItemLayout}>
+          {
+            getFieldDecorator('mode', {
+              initialValue: '1'
+            })(<Select style={{width: 100}}>
+              <Option value="1">指定停车点模式</Option>
+              <Option value="2">禁停区模式</Option>
+            </Select>)
+          }
+
+        </FormItem>
+      </Form>
+    )
+  }
+}
+
+OpenCityForm = Form.create({})(OpenCityForm)

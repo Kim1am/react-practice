@@ -2,7 +2,8 @@ import Mock from 'mockjs';
 
 const url = {
   tableDataOne: /http:\/\/20191015Mock.com\/mode1\/tableDataOne/,
-  opencity: /http:\/\/20191015Mock.com\/mode1\/openCity/
+  opencity: /http:\/\/20191015Mock.com\/mode1\/openCity/,
+  open:/http:\/\/20191015Mock.com\/mode1\/open/
 }
 const list = [
   Mock.mock(url.tableDataOne, 'get', {
@@ -48,6 +49,10 @@ const list = [
       "total": 60,
       "page_count": 6,
     }
+  }),
+  Mock.mock(url.open, 'get', {
+    "code": "0",
+    "result":"开通成功"
   })
 ]
 
