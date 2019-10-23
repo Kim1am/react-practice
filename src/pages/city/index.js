@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Card, Button, Table, Form, Select, Modal,message} from 'antd'
+import {Card, Button, Table, Form, Select, Modal, message} from 'antd'
 import './../../mock/api'
 import axios from './../../axios/index'
 import Utils from './../../utils/utils'
@@ -47,18 +47,18 @@ class City extends Component {
   handleSubmit = () => {
     let cityInfo = this.cityForm.props.form.getFieldsValue()
     axios.ajax({
-      url:'/mode1/open',
-      method:'get',
-      data:{
+      url: '/mode1/open',
+      method: 'get',
+      data: {
         params: cityInfo,
       }
-    }).then((res)=>{
-      if(res.code === "0") {
+    }).then((res) => {
+      if (res.code === "0") {
         message.success('成功')
         this.setState({
-          isShowOpenCity:false
+          isShowOpenCity: false
         })
-      }else {
+      } else {
         message.error(res.result)
       }
     })
@@ -86,14 +86,14 @@ class City extends Component {
         title: '用车模式',
         dataIndex: 'mode',
         render(value) {
-          return value === 1? '停车点':'禁停区'
+          return value === 1 ? '停车点' : '禁停区'
         }
       },
       {
         title: '运营模式',
         dataIndex: 'opMode',
         render(value) {
-          return value === 1? '自营模式':'加盟模式'
+          return value === 1 ? '自营模式' : '加盟模式'
         }
       },
       {
@@ -116,7 +116,7 @@ class City extends Component {
       {
         title: '操作时间',
         dataIndex: 'updateTime',
-        render:Utils.formateDate
+        render: Utils.formateDate
       },
       {
         title: '操作人',
