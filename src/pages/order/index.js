@@ -4,7 +4,7 @@ import './../../mock/api'
 import axios from './../../axios/index'
 import Utils from './../../utils/utils'
 import './index.less'
-
+import BaseForm from '../../components/BaseForm/index'
 
 const FormItem = Form.Item
 const {Option} = Select;
@@ -22,6 +22,68 @@ class Order extends Component {
     }
   }
 
+  formList = [
+    {
+      type: 'SELECT',
+      label: '城市',
+      field: 'city',
+      placeholder: '全部',
+      initialValue: '1',
+      width: 100,
+      list: [
+        {
+
+          id: '0',
+          name: '全部'
+        },
+        {
+          id: '1',
+          name: '北京市'
+        },
+        {
+          id: '2',
+          name: '天津市'
+        },
+        {
+          id: '3',
+          name: '上海市'
+        }
+      ]
+    },
+    {
+      type: '时间查询',
+    },
+    {
+      type: 'SELECT',
+      label: '订单状态',
+      placeholder: '全部',
+      field: 'status',
+      initialValue: '1',
+      width: 100,
+      list: [
+        {
+          id: '0',
+          name: '全部'
+        },
+        {
+          id: '1',
+          name: '进行中'
+        },
+        {
+          id: '2',
+          name: '已结束'
+        }
+      ]
+    },
+    {
+      type: 'INPUT',
+      label: '模式',
+      placeholder: '输入模式',
+      field: 'mode',
+      initialValue: '1',
+      width: 50,
+    },
+  ]
   params = {
     page: 1
   }
@@ -59,7 +121,7 @@ class Order extends Component {
         }
       }
     }).then((res) => {
-      if (res.code == 0) {
+      if (res.code === '0') {
         message.success('订单结束成功')
         this.setState({
           orderConfirmVisble: false,
@@ -92,7 +154,10 @@ class Order extends Component {
       console.log(e)
     })
   }
-  openOrderDetail = ()=>{
+  handleSubmit = (formData) => {
+    console.log(formData)
+  }
+  openOrderDetail = () => {
     let item = this.state.selectItem;
     if (!item) {
       Modal.info({
@@ -101,7 +166,7 @@ class Order extends Component {
       })
       return;
     }
-    window.open(`/#/common/order/detail/${item.id}`,'_blank')
+    window.open(`/#/common/order/detail/${item.id}`, '_blank')
   }
   onSelectedRowKeysChange = (selectedRowKeys, selectedRows) => {
     this.setState({
@@ -184,7 +249,7 @@ class Order extends Component {
     return (
       <div>
         <Card>
-          <FilterForm/>
+          <BaseForm formList={this.formList} filtersSubmit={this.handleSubmit}/>
         </Card>
         <Card>
           <Button onClick={this.openOrderDetail}>订单详情</Button>
@@ -250,7 +315,7 @@ class FilterForm extends Component {
                 <Option value="">前部</Option>
                 <Option value="1">北京市</Option>
                 <Option value="2">天津市</Option>
-                <Option value="3">北京市</Option>
+                <Option value="3">上海市</Option>
               </Select>
             )
           }
@@ -271,7 +336,7 @@ class FilterForm extends Component {
         </FormItem>
         <FormItem label="订单状态">
           {
-            getFieldDecorator('startTime')(
+            getFieldDecorator('status')(
               <Select placeholder="全部" style={{width: 100}}>
                 <Option value="">全部</Option>
                 <Option value="1">进行中</Option>
