@@ -9,14 +9,24 @@
 
   .main {
     background: @colorL;
-    .content {
-      padding: 20px 20px 0 20px;
-      position: relative;
-    }
+  }
+  .content {
+    padding: 20px 20px 0 20px;
+    position: relative;
   }
 }
-
+.clearfix{
+  &:after{
+    content:" ";
+    clear:both;
+    display:block;
+    visibility:hidden;
+  }
+}
 .content-wrap {
   background: #ffffff;
 
+}
+ul,li {
+  list-style:none;
 }

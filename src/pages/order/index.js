@@ -92,8 +92,18 @@ class Order extends Component {
       console.log(e)
     })
   }
+  openOrderDetail = ()=>{
+    let item = this.state.selectItem;
+    if (!item) {
+      Modal.info({
+        title: '信息',
+        content: '请选择一条订单'
+      })
+      return;
+    }
+    window.open(`/#/common/order/detail/${item.id}`,'_blank')
+  }
   onSelectedRowKeysChange = (selectedRowKeys, selectedRows) => {
-    console.log(selectedRowKeys)
     this.setState({
       selectItem: this.state.list[selectedRowKeys[0]],
       selectedRowKeys
@@ -177,7 +187,7 @@ class Order extends Component {
           <FilterForm/>
         </Card>
         <Card>
-          <Button>订单详情</Button>
+          <Button onClick={this.openOrderDetail}>订单详情</Button>
           <Button type="primary" style={{marginLeft: 10}} onClick={this.handleConfirm}>结束订单</Button>
         </Card>
         <div className="content-wrap">

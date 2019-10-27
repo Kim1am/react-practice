@@ -19,6 +19,9 @@ import BasicTable from "./pages/table/basicTable";
 import HighTable from "./pages/table/highTable";
 import City from "./pages/city";
 import Order from "./pages/order";
+import Common from "./pages/common";
+import OrderDetail from "./pages/order/detail";
+
 class IRouter extends Component {
   constructor(props) {
     super(props);
@@ -55,6 +58,12 @@ class IRouter extends Component {
               </Switch>
             </Admin>
           }></Route>
+          <Route path='/common' render={() =>
+            <Common>
+              <Route exact path='/common/order/detail/:orderId' component={OrderDetail}></Route>
+            </Common>
+          }>
+          </Route>
         </Container>
       </HashRouter>
     );
