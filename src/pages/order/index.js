@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Card, Button, Table, Form, Select, Modal, message, DatePicker} from 'antd'
+import {Card, Button, Table, Form, Modal, message} from 'antd'
 import './../../mock/api'
 import axios from './../../axios/index'
 import Utils from './../../utils/utils'
@@ -7,7 +7,6 @@ import './index.less'
 import BaseForm from '../../components/BaseForm/index'
 
 const FormItem = Form.Item
-const {Option} = Select;
 
 class Order extends Component {
   constructor(props) {
@@ -303,56 +302,56 @@ class Order extends Component {
 
 export default Order
 
-class FilterForm extends Component {
-  render() {
-    const {getFieldDecorator} = this.props.form
-    return (
-      <Form layout={"inline"}>
-        <FormItem label="城市">
-          {
-            getFieldDecorator('cityId')(
-              <Select placeholder="全部" style={{width: 100}}>
-                <Option value="">前部</Option>
-                <Option value="1">北京市</Option>
-                <Option value="2">天津市</Option>
-                <Option value="3">上海市</Option>
-              </Select>
-            )
-          }
-        </FormItem>
-        <FormItem>
-          {
-            getFieldDecorator('startTime')(
-              <DatePicker placeholder="开始时间" showTime format="YYYY-MM-DD HH:mm:ss"/>
-            )
-          }
-        </FormItem>
-        <FormItem>
-          {
-            getFieldDecorator('endTime')(
-              <DatePicker placeholder="结束时间" showTime format="YYYY-MM-DD HH:mm:ss"/>
-            )
-          }
-        </FormItem>
-        <FormItem label="订单状态">
-          {
-            getFieldDecorator('status')(
-              <Select placeholder="全部" style={{width: 100}}>
-                <Option value="">全部</Option>
-                <Option value="1">进行中</Option>
-                <Option value="2">已结束</Option>
-              </Select>
-            )
-          }
-        </FormItem>
-        <FormItem>
-          <Button type="primary" style={{marigin: '0 20px'}}>查询</Button>
-          <Button>重置</Button>
-        </FormItem>
-      </Form>
-    )
-  }
-
-}
-
-FilterForm = Form.create({})(FilterForm)
+// class FilterForm extends Component {
+//   render() {
+//     const {getFieldDecorator} = this.props.form
+//     return (
+//       <Form layout={"inline"}>
+//         <FormItem label="城市">
+//           {
+//             getFieldDecorator('cityId')(
+//               <Select placeholder="全部" style={{width: 100}}>
+//                 <Option value="">前部</Option>
+//                 <Option value="1">北京市</Option>
+//                 <Option value="2">天津市</Option>
+//                 <Option value="3">上海市</Option>
+//               </Select>
+//             )
+//           }
+//         </FormItem>
+//         <FormItem>
+//           {
+//             getFieldDecorator('startTime')(
+//               <DatePicker placeholder="开始时间" showTime format="YYYY-MM-DD HH:mm:ss"/>
+//             )
+//           }
+//         </FormItem>
+//         <FormItem>
+//           {
+//             getFieldDecorator('endTime')(
+//               <DatePicker placeholder="结束时间" showTime format="YYYY-MM-DD HH:mm:ss"/>
+//             )
+//           }
+//         </FormItem>
+//         <FormItem label="订单状态">
+//           {
+//             getFieldDecorator('status')(
+//               <Select placeholder="全部" style={{width: 100}}>
+//                 <Option value="">全部</Option>
+//                 <Option value="1">进行中</Option>
+//                 <Option value="2">已结束</Option>
+//               </Select>
+//             )
+//           }
+//         </FormItem>
+//         <FormItem>
+//           <Button type="primary" style={{marigin: '0 20px'}}>查询</Button>
+//           <Button>重置</Button>
+//         </FormItem>
+//       </Form>
+//     )
+//   }
+//
+// }
+//
+// FilterForm = Form.create({})(FilterForm)

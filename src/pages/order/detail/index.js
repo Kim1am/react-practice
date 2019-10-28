@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {Card} from 'antd'
 import axios from '../../../axios/index'
-import Utils from '../../../utils/utils'
 import './detail.less'
 import '../../../mock/api'
 
@@ -36,7 +35,6 @@ class OrderDetail extends Component {
 
   //绘制路线
   drawBikeRoute = (positionList) => {
-    let map = this.map
     let startPoint = ''
     let endPoint = ''
     if (positionList.length > 0) {
@@ -105,7 +103,7 @@ class OrderDetail extends Component {
             <ul className="detail-form">
               <li>
                 <div className="detail-form-left">用车模式</div>
-                <div className="detail-form-content">{info.mode ? info.mode == 1 ? '服务区' : '停车点' : ''}</div>
+                <div className="detail-form-content">{info.mode ? info.mode === 1 ? '服务区' : '停车点' : ''}</div>
               </li>
               <li>
                 <div className="detail-form-left">订单编号</div>
