@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
-import {Card, Button, Table, Form, Modal, message} from 'antd'
+import {Card, Button, Form, Modal, message} from 'antd'
 import './../../mock/api'
 import axios from './../../axios/index'
 import Utils from './../../utils/utils'
 import './index.less'
 import BaseForm from '../../components/BaseForm/index'
+import ETable from "../../components/ETable";
 
 const FormItem = Form.Item
 
@@ -14,7 +15,7 @@ class Order extends Component {
     this.state = {
       list: [],
       selectedRowKeys: [],
-      selectItem: null,
+      selectItem: [],
       orderConfirmVisble: false,
       orderInfo: {}
 
@@ -92,7 +93,7 @@ class Order extends Component {
   }
 
   requestList = () => {
-    axios.requestList(this,'/order/list',this.params)
+    axios.requestList(this, '/order/list', this.params)
   }
   handleFinishOrder = () => {
     let item = this.state.selectItem;
@@ -109,7 +110,7 @@ class Order extends Component {
         this.setState({
           orderConfirmVisble: false,
           selectedRowKeys: [],
-          selectItem: null,
+          selectItem: [],
           orderInfo: {}
         })
         this.requestList();
@@ -149,21 +150,9 @@ class Order extends Component {
       })
       return;
     }
-    window.open(`/#/common/order/detail/${item.id}`, '_blank')
-  }
-  onSelectedRowKeysChange = (selectedRowKeys, selectedRows) => {
-    this.setState({
-      selectItem: this.state.list[selectedRowKeys[0]],
-      selectedRowKeys
-    });
+    window.open(`/#/common/order/detail/${item[0].id}`, '_blank')
   }
 
-  onRowClick = (row, selectedRowKeys) => {
-    this.setState({
-      selectItem: row,
-      selectedRowKeys: [selectedRowKeys]
-    });
-  }
 
   render() {
     const columns = [
@@ -220,11 +209,7 @@ class Order extends Component {
       },
 
     ]
-    const rowSelection = {
-      type: "radio",
-      selectedRowKeys: this.state.selectedRowKeys,
-      onChange: this.onSelectedRowKeysChange
-    }
+
     const formItemLayout = {
       labelCol: {span: 5},
       wrapperCol: {span: 19}
@@ -239,18 +224,14 @@ class Order extends Component {
           <Button type="primary" style={{marginLeft: 10}} onClick={this.handleConfirm}>结束订单</Button>
         </Card>
         <div className="content-wrap">
-          <Table
-            onRow={(record, index) => {
-              return {
-                onClick: (event) => {
-                  this.onRowClick(record, index)
-                }, // 点击行
-              };
-            }}
-            rowSelection={rowSelection}
+          <ETable
+            updateSelectedItem = {Utils.updateSelectedItem.bind(this)}
             columns={columns}
+            selectedRowKeys={this.state.selectedRowKeys}
             dataSource={this.state.list}
-            pagination={this.state.pagination}/>
+            pagination={this.state.pagination}
+            selectedItem={this.state.selectItem}
+          />
         </div>
         <Modal
           title="结束订单"
