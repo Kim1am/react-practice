@@ -92,23 +92,7 @@ class Order extends Component {
   }
 
   requestList = () => {
-    axios.ajax({
-      url: '/order/list',
-      method: 'get'
-    }).then((res) => {
-      this.setState({
-        list: res.dataSource.list.map((item, index) => {
-          item.key = index
-          return item
-        }),
-        pagination: Utils.pagination(res, (current) => {
-          this.params.page = current
-          this.requestList()
-        })
-      })
-    }).catch((e) => {
-      console.log(e)
-    })
+    axios.requestList(this,'/order/list',this.params)
   }
   handleFinishOrder = () => {
     let item = this.state.selectItem;
