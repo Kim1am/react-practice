@@ -8,6 +8,10 @@ const url = {
   orderInfo: /http:\/\/20191015Mock.com\/order\/info/,
   orderFinish: /http:\/\/20191015Mock.com\/order\/finish/,
   orderDetail: /http:\/\/20191015Mock.com\/order\/detail/,
+  userList: /http:\/\/20191015Mock.com\/user\/list/,
+  userDelete:/http:\/\/20191015Mock.com\/user\/delete/,
+  userEdit:/http:\/\/20191015Mock.com\/user\/edit/,
+  userCreate:/http:\/\/20191015Mock.com\/user\/create/,
 }
 const list = [
   Mock.mock(url.tableDataOne, 'get', {
@@ -58,6 +62,18 @@ const list = [
     "code": "0",
     "result": "开通成功"
   }),
+  Mock.mock(url.userDelete, 'get', {
+    "code": "0",
+    "result": "删除成功"
+  }),
+  Mock.mock(url.userEdit, 'get', {
+    "code": "0",
+    "result": "编辑成功"
+  }),
+  Mock.mock(url.userCreate, 'get', {
+    "code": "0",
+    "result": "创建成功"
+  }),
   Mock.mock(url.orderFinish, 'get', {
     "code": "0",
     "result": "结束成功"
@@ -96,9 +112,29 @@ const list = [
       "location": '@city'
     }
   }),
+  Mock.mock(url.userList, 'get', {
+    "code": "0",
+    "message": "",
+    "dataSource": {
+      "list|10": [{
+        "id|+1": 1,
+        "username": "@cname",
+        "sex|1-2": 1,
+        "state|1-5": 1,
+        "interest|1-8": 1,
+        "isMarried|0-1": 1,
+        "birthday": "2000-01-01",
+        "address": "北京市海淀区",
+        "time": "09:00:00"
+      }],
+      page: 1,
+      page_size: 10,
+      total_count: 30
+    }
+  }),
   Mock.mock(url.orderDetail, 'get', {
-    "code":'0',
-    "msg":'',
+    "code": '0',
+    "msg": '',
     "result": {
       "status": 2,
       "order_sn": "T1803244422704080JGJI",
