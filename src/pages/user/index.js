@@ -201,7 +201,7 @@ class User extends Component {
         <Card>
           <BaseForm formList={this.formList} filtersSubmit={this.search}/>
         </Card>
-        <Card style={{marginTop: 10}}>
+        <Card>
           <Button type="primary" icon="plus" onClick={() => this.handleOperator('create')}>创建员工</Button>
           <Button icon="edit" onClick={() => this.handleOperator('edit')}>编辑员工</Button>
           <Button onClick={() => this.handleOperator('detail')}>员工详情</Button>

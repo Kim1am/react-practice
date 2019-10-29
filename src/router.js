@@ -22,6 +22,7 @@ import Order from "./pages/order";
 import Common from "./pages/common";
 import OrderDetail from "./pages/order/detail";
 import User from "./pages/user";
+import bikeMap from "./pages/bikeMap";
 
 class IRouter extends Component {
   constructor(props) {
@@ -57,6 +58,7 @@ class IRouter extends Component {
                 <Route exact path='/admin/order' component={Order}></Route>
 
                 <Route exact path='/admin/user' component={User}></Route>
+                <Route exact path='/admin/bikeMap' component={bikeMap}></Route>
                 <Route component={notFound}></Route>
               </Switch>
             </Admin>
