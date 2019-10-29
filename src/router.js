@@ -23,6 +23,9 @@ import Common from "./pages/common";
 import OrderDetail from "./pages/order/detail";
 import User from "./pages/user";
 import bikeMap from "./pages/bikeMap";
+import Bar from "./pages/charts/bar";
+import Pie from "./pages/charts/pie";
+import Line from "./pages/charts/line";
 
 class IRouter extends Component {
   constructor(props) {
@@ -59,6 +62,10 @@ class IRouter extends Component {
 
                 <Route exact path='/admin/user' component={User}></Route>
                 <Route exact path='/admin/bikeMap' component={bikeMap}></Route>
+
+                <Route exact path='/admin/charts/bar' component={Bar}></Route>
+                <Route exact path='/admin/charts/pie' component={Pie}></Route>
+                <Route exact path='/admin/charts/line' component={Line}></Route>
                 <Route component={notFound}></Route>
               </Switch>
             </Admin>
