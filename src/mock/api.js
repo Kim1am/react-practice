@@ -13,6 +13,10 @@ const url = {
   userEdit: /http:\/\/20191015Mock.com\/user\/edit/,
   userCreate: /http:\/\/20191015Mock.com\/user\/create/,
   bikeList: /http:\/\/20191015Mock.com\/bike\/list/,
+  permissionList: /http:\/\/20191015Mock.com\/permission\/list/,
+  permissionCreate: /http:\/\/20191015Mock.com\/permission\/create/,
+  permissionEdit: /http:\/\/20191015Mock.com\/permission\/edit/,
+  permissionUserList: /http:\/\/20191015Mock.com\/role\/userlist/,
 }
 const list = [
   Mock.mock(url.tableDataOne, 'get', {
@@ -75,6 +79,14 @@ const list = [
     "code": "0",
     "result": "创建成功"
   }),
+  Mock.mock(url.permissionCreate, 'get', {
+    "code": "0",
+    "result": "创建成功"
+  }),
+  Mock.mock(url.permissionEdit, 'get', {
+    "code": "0",
+    "result": "编辑成功"
+  }),
   Mock.mock(url.orderFinish, 'get', {
     "code": "0",
     "result": "结束成功"
@@ -102,6 +114,14 @@ const list = [
       "total": 85,
       "page_count": 9,
     }
+  }),
+  Mock.mock(url.permissionUserList, 'get', {
+    "code": "0",
+    "dataSource|20": [{
+      "status|0-1": 0,
+      "user_id|+1": 1,
+      "user_name": "@cname"
+    }]
   }),
   Mock.mock(url.orderInfo, 'get', {
     "code": "0",
@@ -352,6 +372,25 @@ const list = [
           "ts": null
         }
       ]
+    }
+  }),
+  Mock.mock(url.permissionList, 'get', {
+    "code": "0",
+    "message": "",
+    "dataSource": {
+      "list|7": [{
+        "id|+1": 1,
+        "role_name": /(管理人员)|(客服专员)|(财务专员)|(市场专员)|(人力专员)|(研发)|(测试)|(系统管理员)/,
+        "status|0-1": 1,
+        "authorize_user_name": "@cname",
+        "authorize_time": 1521270166000,
+        "create_time": 1499305790000,
+        "menus": ["/home", "/ui/buttons", "/ui/modals", "/ui/loadings", "/ui/notifications", "/ui/messages", "/ui/tabs", "/ui/gallery", "/ui/carousel", "/ui"]
+      }],
+      page: 1,
+      page_size: 10,
+      total_count: 25,
+      page_count: 3,
     }
   }),
 ]

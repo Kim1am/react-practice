@@ -9,7 +9,12 @@ class ETable extends Component {
 
   }
   onSelectChange = (selectedRowKeys, selectedRows)=>{
-    this.props.updateSelectedItem(selectedRowKeys,selectedRows)
+    let rowSelection = this.props.rowSelection
+    if(rowSelection === 'checkbox') {
+      this.props.updateSelectedItem(selectedRowKeys,selectedRows)
+    }else {
+      this.props.updateSelectedItem(selectedRowKeys,selectedRows[0])
+    }
   }
   onRowClick = (record, index) => {
     let rowSelection = this.props.rowSelection

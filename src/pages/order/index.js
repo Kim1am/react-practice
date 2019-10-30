@@ -150,7 +150,7 @@ class Order extends Component {
       })
       return;
     }
-    window.open(`/#/common/order/detail/${item[0].id}`, '_blank')
+    window.open(`/#/common/order/detail/${item.id}`, '_blank')
   }
 
 

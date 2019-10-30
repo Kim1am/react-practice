@@ -33,7 +33,7 @@ class NavLeft extends Component {
       }
       return (
         <Menu.Item key={item.key}>
-          <NavLink to={`/admin${item.key}`}>
+          <NavLink to={`${item.key}`}>
             {item.title}
           </NavLink>
 
